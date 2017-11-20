@@ -1,6 +1,5 @@
 #ifndef LSSOLVE_H
 #define LSSOLVE_H
-
 #include "matrix_io.h"
 
 /* C prototype for LAPACK routine DGELS */
