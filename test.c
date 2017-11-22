@@ -1,25 +1,29 @@
+#include <assert.h>
 #include "matrix_io.h"
+#include "lssolve.h"
 
 int main(int argc, char const *argv[]) {
+	matrix_t *A = read_matrix("A.txt");
+	vector_t *b = read_vector("b.txt");
+	
+	assert(A->n == 3);
+	assert(A->m == 10);
+	assert(b->n == A->n);
+	
+	
+	double actual_norm = 0.0;
+	double machine_epsilon = 0.0;
+	assert(abs(norm(b) - actual_norm) <= machine_epsilon);
+	
+	int STATE = dgels_(A,b);
+	assert(STATE == 0);
+	
+	vector_t r;
+	double actual_residual = 0.0;
+	assert(abs(norm(r)/norm(b) - actual_residual) <= machine_epsilon);
 
-  matrix_t *A = read_matrix("Al.txt");
-  vector_t *b = read_vector("bl.txt");
-  vector_t *x = read_vector("xl.txt");
-
-  printf("A: %lu x %lu\n",A->m, A->n);
-  printf("x: %lu\n",x->n);
-  printf("b: %lu\n",b->n);
-
-  if (b==NULL) printf("b is NULL\n");
-  if (x==NULL) printf("x is NULL\n");
-  if (A==NULL) printf("A is NULL\n");
-
-  printf("freeing x\n");
-  free_vector(x);
-  printf("freeing b\n");
-  free_vector(b);
-  printf("freeing A\n");
-  free_matrix(A);
-
-  return 0;
+	free_vector(x);
+	free_vector(b);
+	free_matrix(A);
+	return 0;
 }

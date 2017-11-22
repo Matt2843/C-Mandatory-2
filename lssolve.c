@@ -24,7 +24,7 @@ double norm(vector_t * in) {
  * @return info an int
  */
 int compute_dgels(matrix_t *A, vector_t *b) {
-	const char trans = 'N';
+	const char trans = 'T';
 	const int m = (int)(A->n);
 	const int n = (int)(A->m);
 	const int nrhs = 1;
@@ -60,7 +60,7 @@ int main(int argc, char * argv[]) {
 	int STATE = compute_dgels(A, b);
 
 	if(STATE != 0) {
-		if(STATE < 0) printf("The %d'th paramter provided to the dgels routine is illegal\n", abs(STATE));
+		if(STATE < 0) printf("The %d'th paramater provided to the dgels routine is illegal\n", abs(STATE));
 		else printf("The provided matrix A does not have full rank, the %d'th diagonal element is zero.\n", STATE);
 	}
 
