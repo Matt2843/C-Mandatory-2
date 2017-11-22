@@ -1,3 +1,4 @@
+#include <string.h>
 #include "lssolve.h"
 
 /** @brief a function for calculating the euclidean norm of a vector_t.
@@ -44,6 +45,15 @@ int compute_dgels(matrix_t *A, vector_t *b) {
 	return info;
 }
 
+/** @brief a function containing tests for the other functions.
+ *
+ * @return void
+ */
+int tests() {
+	
+	return EXIT_SUCCESS;
+}
+
 /** @brief the main engine to test the implemented functions
  * 		
  * 	The function prints the residual norm
@@ -55,7 +65,11 @@ int compute_dgels(matrix_t *A, vector_t *b) {
  * @return STATE the INFO param of dgels routine 
  */
 int main(int argc, char * argv[]) {
-	if(argc < 4) return EXIT_FAILURE;
+	if(argc > 4) return EXIT_FAILURE;
+	if(!strcmp(argv[1],"test")) {
+		
+		return tests();
+	}
 	
 	matrix_t * A = read_matrix(argv[1]);
 	vector_t * b = read_vector(argv[2]);

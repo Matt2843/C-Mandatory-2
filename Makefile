@@ -19,7 +19,7 @@ else
 	endif
 endif
 
-.PHONY: all clean run
+.PHONY: all clean run test
 
 all: $(EXECUTABLE)
 
@@ -33,3 +33,6 @@ clean:
 
 run: $(EXECUTABLE)
 	./$< $(ARGS)
+
+test: $(EXECUTABLE)
+	./$< "test"
