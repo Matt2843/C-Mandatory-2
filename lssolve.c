@@ -57,7 +57,7 @@ int tests() {
 	
 	assert(A->n == 3);
 	assert(A->m == 10);
-	assert(b->n == A->n);
+	assert(b->n == A->m);
 	
 	double actual_norm = 1.95336573636377664;
 	const double double_machine_epsilon = 2.2204460492503131e-16;
