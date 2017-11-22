@@ -1,5 +1,10 @@
 #include "lssolve.h"
 
+/** @brief a function for calculating the euclidean norm of a vector_t.
+ *
+ * @param in a vector_t
+ * @return a double
+ */
 double norm(vector_t * in) {
 	double norm = 0.0;
 	for(unsigned long i = 0; i < in->n; i++) {
@@ -8,6 +13,16 @@ double norm(vector_t * in) {
 	return sqrt(norm); 
 }
 
+/** @brief a support-function for the dgels routine of the LAPACK library.
+ *
+ *	A computation of the least-squares problem solved by the means of a
+ *	QR factorization of the input matrix_t A. The solution is stored in the
+ *	vector_t b. 
+ *
+ * @param A a pointer to a matrix_t
+ * @param b a pointer to a vector_t
+ * @return info an int
+ */
 int compute_dgels(matrix_t *A, vector_t *b) {
 	const char trans = 'T';
 	const int m = (int)(A->n);
