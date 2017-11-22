@@ -85,10 +85,10 @@ int tests() {
 	
 	// The relative residual norm is calculated in matlab.
 	double actual_relative_residual = 0.179810934931646;
-	assert(abs(norm(r)/actual_norm - actual_residual) <= double_machine_epsilon);
+	assert(abs(norm(&r)/actual_norm - actual_relative_residual) <= double_machine_epsilon);
 	
-	free_vector(r);
-	free_vector(x);
+	free_vector(&r);
+	free_vector(&x);
 	free_vector(b);
 	free_matrix(A);
 	return EXIT_SUCCESS;
