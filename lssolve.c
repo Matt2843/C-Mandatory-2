@@ -24,7 +24,7 @@ double norm(vector_t * in) {
  * @return info an int
  */
 int compute_dgels(matrix_t *A, vector_t *b) {
-	const char trans = 'T';
+	const char trans = 'N';
 	const int m = (int)(A->n);
 	const int n = (int)(A->m);
 	const int nrhs = 1;
