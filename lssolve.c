@@ -50,7 +50,7 @@ int main(int argc, char * argv[]) {
 	matrix_t * A = read_matrix(argv[1]);
 	vector_t * b = read_vector(argv[2]);
 	
-	if(A->n < A->m) {
+	if(A->m < A->n) {
 		printf("The matrix has more columns than rows, this would provide a solution for the LQ-factorization and not the desired QR-factorization. Terminating ..\n");
 		return EXIT_FAILURE;
 	}
