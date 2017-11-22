@@ -22,6 +22,7 @@ void dgels_(
     int * info           /* status code            */
 );
 
+// Function prototypes
 double norm(vector_t*);
 int compute_dgels(matrix_t*, vector_t*);
 

@@ -53,7 +53,8 @@ int main(int argc, char * argv[]) {
 	double b_norm = norm(b);
 	
 	int STATE = compute_dgels(A, b);
-	
+	if(STATE != 0) return EXIT_FAILURE;
+
 	vector_t x;
 	x.n = 3;
 	x.v = b->v;
