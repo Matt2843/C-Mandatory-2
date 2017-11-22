@@ -44,6 +44,16 @@ int compute_dgels(matrix_t *A, vector_t *b) {
 	return info;
 }
 
+/** @brief the main engine to test the implemented functions
+ * 		
+ * 	The function prints the residual norm
+ * 	and saves the least-squares solution in the solution.txt file
+ *
+ * @param argv[1] a path to text-file containing the matrix A
+ * @param argv[2] a path to text-file containing the vector b
+ * @param argv[3] a path to text-file for writing solution
+ * @return STATE the INFO param of dgels routine 
+ */
 int main(int argc, char * argv[]) {
 	if(argc < 4) return EXIT_FAILURE;
 	
