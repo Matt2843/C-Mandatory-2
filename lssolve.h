@@ -23,6 +23,7 @@ void dgels_(
 );
 
 // Function prototypes
+int tests();
 double norm(vector_t*);
 int compute_dgels(matrix_t*, vector_t*);
 
