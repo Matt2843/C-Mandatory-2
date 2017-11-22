@@ -50,18 +50,27 @@ int main(int argc, char * argv[]) {
 	matrix_t * A = read_matrix(argv[1]);
 	vector_t * b = read_vector(argv[2]);
 	
+	if(A->n < A->m) {
+		printf("The matrix has more columns than rows, this would provide a solution for the LQ-factorization and not the desired QR-factorization. Terminating ..\n");
+		return EXIT_FAILURE;
+	}
+
 	double b_norm = norm(b);
 	
 	int STATE = compute_dgels(A, b);
-	if(STATE != 0) return EXIT_FAILURE;
+
+	if(STATE != 0) {
+		if(STATE < 0) printf("The %d'th paramter provided to the dgels routine is illegal\n", abs(STATE));
+		else printf("The provided matrix A does not have full rank, the %d'th diagonal element is zero.\n", STATE);
+	}
 
 	vector_t x;
-	x.n = 3;
+	x.n = A->n;
 	x.v = b->v;
 	
 	vector_t r;
-	r.n = b->n - 3;
-	r.v = b->v + 3;
+	r.n = abs(A->n - A->m);
+	r.v = b->v + A->n;
 	
 	double r_norm = norm(&r);
 
