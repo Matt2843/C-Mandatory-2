@@ -19,7 +19,14 @@ double norm(vector_t * in) {
  *
  *	A computation of the least-squares problem solved by the means of a
  *	QR factorization of the input matrix_t A. The solution is stored in the
- *	vector_t b. 
+ *	vector_t b. The input matrix A always satisfies m >= n, but is not stored
+ *	in the desired way for the dgels routine. The transposed solution does however,
+ *	and therefore the trans parameter is thus set to 'T'.
+ *	And by the documentation of the dgels routine, if TRANS = 'T' and m < n, rows 1 to M of B contain the
+ *  least squares solution vectors; the residual sum of squares
+ *  for the solution in each column is given by the sum of
+ *  squares of elements M+1 to N in that column. Which is the desired solution and why
+ *  we initially check that the condition is satisfied in the main function.
  *
  * @param A a pointer to a matrix_t
  * @param b a pointer to a vector_t
@@ -47,7 +54,6 @@ int compute_dgels(matrix_t *A, vector_t *b) {
 }
 
 /** @brief a function containing tests for a fabricated example.
- *	
  * @return void
  */
 int tests() {
@@ -55,8 +61,8 @@ int tests() {
 	matrix_t *A = read_matrix("A_test.txt"); 
 	vector_t *b = read_vector("b_test.txt");
 	
-	assert(A->n == 3);
 	assert(A->m == 10);
+	assert(A->n == 3);
 	assert(b->n == A->m);
 	
 	double actual_norm = 1.95336573636377664;
@@ -86,9 +92,7 @@ int tests() {
 	// The relative residual norm is calculated in matlab.
 	double actual_relative_residual = 0.179810934931646;
 	assert(abs(norm(&r)/actual_norm - actual_relative_residual) <= double_machine_epsilon);
-	
-	free_vector(&r);
-	free_vector(&x);
+
 	free_vector(b);
 	free_matrix(A);
 	return EXIT_SUCCESS;
