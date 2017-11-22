@@ -95,6 +95,7 @@ int tests() {
 
 	free_vector(b);
 	free_matrix(A);
+	printf("All assertions evaluated to true\n");
 	return EXIT_SUCCESS;
 }
 
@@ -111,7 +112,6 @@ int tests() {
 int main(int argc, char * argv[]) {
 	if(argc > 4) return EXIT_FAILURE;
 	if(!strcmp(argv[1],"test")) {
-		
 		return tests();
 	}
 	
