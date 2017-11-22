@@ -63,7 +63,7 @@ int tests() {
 	const double double_machine_epsilon = 2.2204460492503131e-16;
 	assert(abs(norm(b) - actual_norm) <= double_machine_epsilon);
 	
-	int STATE = dgels_(A,b);
+	int STATE = compute_dgels(A, b);
 	assert(STATE == 0);
 	
 	vector_t x;
@@ -79,9 +79,9 @@ int tests() {
 	double ls2 = -2.04158999101888;
 	double ls3 = 1.04294431491269;
 	
-	assert(abs(x->v[0] - ls1) <= double_machine_epsilon);
-	assert(abs(x->v[1] - ls2) <= double_machine_epsilon);
-	assert(abs(x->v[2] - ls3) <= double_machine_epsilon);
+	assert(abs(x.v[0] - ls1) <= double_machine_epsilon);
+	assert(abs(x.v[1] - ls2) <= double_machine_epsilon);
+	assert(abs(x.v[2] - ls3) <= double_machine_epsilon);
 	
 	// The relative residual norm is calculated in matlab.
 	double actual_relative_residual = 0.179810934931646;
