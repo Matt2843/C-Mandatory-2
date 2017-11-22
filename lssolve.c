@@ -45,12 +45,51 @@ int compute_dgels(matrix_t *A, vector_t *b) {
 	return info;
 }
 
-/** @brief a function containing tests for the other functions.
- *
+/** @brief a function containing tests for a fabricated example.
+ *	
  * @return void
  */
 int tests() {
+	// Load in the predefined matrix and vector.
+	matrix_t *A = read_matrix("A_test.txt"); 
+	vector_t *b = read_vector("b_test.txt");
 	
+	assert(A->n == 3);
+	assert(A->m == 10);
+	assert(b->n == A->n);
+	
+	double actual_norm = 1.95336573636377664;
+	const double double_machine_epsilon = 2.2204460492503131e-16;
+	assert(abs(norm(b) - actual_norm) <= double_machine_epsilon);
+	
+	int STATE = dgels_(A,b);
+	assert(STATE == 0);
+	
+	vector_t x;
+	x.n = A->n;
+	x.v = b->v;
+	
+	vector_t r;
+	r.n = abs(A->n - A->m);
+	r.v = b->v + A->n;
+	
+	// The solution for the least-squares problem calculated in maple.
+	double ls1 = 1.05161973276760;
+	double ls2 = -2.04158999101888;
+	double ls3 = 1.04294431491269;
+	
+	assert(abs(x->v[0] - ls1) <= double_machine_epsilon);
+	assert(abs(x->v[1] - ls2) <= double_machine_epsilon);
+	assert(abs(x->v[2] - ls3) <= double_machine_epsilon);
+	
+	// The relative residual norm is calculated in matlab.
+	double actual_relative_residual = 0.0;
+	assert(abs(norm(r)/actual_norm - actual_residual) <= double_machine_epsilon);
+	
+	free_vector(r);
+	free_vector(x);
+	free_vector(b);
+	free_matrix(A);
 	return EXIT_SUCCESS;
 }
 
@@ -59,7 +98,7 @@ int tests() {
  * 	The function prints the residual norm
  * 	and saves the least-squares solution in the solution.txt file
  *
- * @param argv[1] a path to text-file containing the matrix A
+ * @param argv[1] a path to text-file containing the matrix A OR the string "test" to run the implemented tests.
  * @param argv[2] a path to text-file containing the vector b
  * @param argv[3] a path to text-file for writing solution
  * @return STATE the INFO param of dgels routine 
