@@ -1,4 +1,5 @@
 #include <string.h>
+#include <assert.h>
 #include "lssolve.h"
 
 /** @brief a function for calculating the euclidean norm of a vector_t.
@@ -83,7 +84,7 @@ int tests() {
 	assert(abs(x->v[2] - ls3) <= double_machine_epsilon);
 	
 	// The relative residual norm is calculated in matlab.
-	double actual_relative_residual = 0.0;
+	double actual_relative_residual = 0.179810934931646;
 	assert(abs(norm(r)/actual_norm - actual_residual) <= double_machine_epsilon);
 	
 	free_vector(r);
